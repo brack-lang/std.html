@@ -20,6 +20,10 @@
         pkgs = import nixpkgs {
           inherit system overlays;
         };
+        extism-cli = (import ./nix/extism-cli.nix {
+          buildGoModule = pkgs.buildGoModule;
+          fetchFromGitHub = pkgs.fetchFromGitHub;
+        });
       in {
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
@@ -27,16 +31,11 @@
             openssl
             glib
             pkg-config
-            (fenix.packages.${system}.complete.withComponents [
-              "cargo"
-              "clippy"
-              "rust-src"
-              "rustc"
-              "rustfmt"
-            ])
-            rust-analyzer-nightly
+            rustup
+            cargo
+            gcc
+            extism-cli
           ];
-          RUST_SRC_PATH = "${fenix.packages.${system}.complete.rust-src}/lib/rustlib/src/rust/library";
         };
       }
     );
