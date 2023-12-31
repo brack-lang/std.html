@@ -14,8 +14,22 @@ jobs:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
       - run: nix build
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        id: create_release
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: ./result/std.html.wasm
+          tag_name: release-${{ steps.date.outputs.date }}
+          release_name: Release ${{ steps.date.outputs.date }}
+          body: Compiled PDF ${{ steps.date.outputs.date }}
+          draft: false
+          prerelease: false
+      - name: Upload PDF
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./result/std.html.wasm
+          asset_name: std.html.wasm
+          asset_content_type: application/wasm
