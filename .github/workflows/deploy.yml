@@ -12,20 +12,21 @@ jobs:
       - uses: cachix/install-nix-action@v22
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo "date=$(date +'%Y-%m-%d-%H-%M')" >> $GITHUB_OUTPUT
+        env: 
+          TZ: "Asia/Tokyo"
+        id: date
       - run: nix build
-      - name: Create Release
+      - uses: actions/create-release@v1
         id: create_release
-        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: release-${{ steps.date.outputs.date }}
-          release_name: Release ${{ steps.date.outputs.date }}
-          body: Compiled PDF ${{ steps.date.outputs.date }}
+          tag_name: v-${{ steps.date.outputs.date }}
+          release_name: Nightly release ${{ steps.date.outputs.date }}
           draft: false
           prerelease: false
-      - name: Upload PDF
-        uses: actions/upload-release-asset@v1
+      - uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
