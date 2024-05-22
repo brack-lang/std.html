@@ -6,8 +6,7 @@ pub fn metadata_italic() -> FnResult<Json<MetaData>> {
     Ok(Json(MetaData {
         command_name: "/".to_string(),
         call_name: "italic".to_string(),
-        // TODO
-        argument_types: vec![],
+        argument_types: vec![("text".to_string(), Type::TInline)],
         return_type: Type::TInline,
     }))
 }
