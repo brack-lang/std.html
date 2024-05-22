@@ -17,7 +17,7 @@ pub fn metadata_anchor() -> FnResult<Json<MetaData>> {
 // [@ a, b] => <a href="a">b</a>
 #[plugin_fn]
 pub fn anchor(Json(args): Json<Vec<Value>>) -> FnResult<String> {
-    if args.len() == 2 {
+    if args.len() != 2 {
         return Err(WithReturnCode::new(
             anyhow::anyhow!(
                 "Usage:
