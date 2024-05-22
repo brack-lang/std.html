@@ -6,12 +6,10 @@ edition = "2021"
 [lib]
 crate_type = ["cdylib"]
 
-[build]
-target = "wasm32-unknown-unknown"
-
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-anyhow = "1.0.78"
+anyhow = "1.0.79"
 extism-pdk = "1.0.0-rc1"
 serde = "1.0.193"
+brack-sdk-rs = { git = "https://github.com/brack-lang/brack", branch = "implements_funcs_signature_extraction", package = "brack-sdk-rs" }
