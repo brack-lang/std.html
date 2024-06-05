@@ -1,7 +1,13 @@
 # std.html
 The standard library of the brack-language for targeting to naive HTML.
 
-## Heading
+## Installation
+```sh
+$ brack add github:brack-lang/std.html
+```
+
+## Syntax
+### Heading
 ```brack
 {std.* Hello!}
 {std.** }
@@ -11,7 +17,7 @@ The standard library of the brack-language for targeting to naive HTML.
 <h1>Hello!</h1>
 ```
 
-## Bold
+### Bold
 ```brack
 [std.* Hello!]
 ```
@@ -20,7 +26,7 @@ The standard library of the brack-language for targeting to naive HTML.
 <span>Hello!</span>
 ```
 
-## Italic
+### Italic
 ```brack
 [std./ Hello!]
 ```
@@ -29,7 +35,7 @@ The standard library of the brack-language for targeting to naive HTML.
 <span style="">Hello!</span>
 ```
 
-## List
+### List
 ```brack
 [std.list
     Hokkaido,
@@ -60,7 +66,10 @@ The standard library of the brack-language for targeting to naive HTML.
 </ul>
 ```
 
-## Quote
+### Quote
 ```brack
 [std.> Hello!]
 ```
+
+## LICENSE
+MIT OR Apache-2.0
