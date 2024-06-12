@@ -23,7 +23,7 @@ jobs:
       - name: Get latest dev tag
         id: new-tag
         run: |
-          LATEST_TAG=$(gh release list --limit 100 | grep "v-${{ steps.version.outputs.version }}-dev-" | sort -V | tail -n 1 | awk '{print $1}')
+          LATEST_TAG=$(gh release list --limit 100 | grep "v-${{ steps.version.outputs.version }}-dev-" | sort -V | tail -n 1 | awk '{print $3}')
           if [ -z "$LATEST_TAG" ]; then
             NEW_TAG="v-${{ steps.version.outputs.version }}-dev-1"
           else
@@ -43,7 +43,7 @@ jobs:
           tag_name: ${{ steps.new-tag.outputs.new_tag }}
           release_name: Develop release ${{ steps.new-tag.outputs.new_tag }}
           draft: false
-          prerelease: false
+          prerelease: true
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
