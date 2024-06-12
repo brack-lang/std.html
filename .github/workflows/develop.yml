@@ -1,8 +1,8 @@
 name: Develop
 on:
   push:
-    branches-ignore:
-      - main
+    branches:
+      - develop
 
 jobs:
   build:
@@ -43,7 +43,7 @@ jobs:
           tag_name: ${{ steps.new-tag.outputs.new_tag }}
           release_name: Develop release ${{ steps.new-tag.outputs.new_tag }}
           draft: false
-          prerelease: true
+          prerelease: false
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
