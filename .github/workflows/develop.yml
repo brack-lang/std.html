@@ -42,7 +42,7 @@ jobs:
         with:
           tag_name: ${{ steps.new-tag.outputs.new_tag }}
           release_name: Develop release ${{ steps.new-tag.outputs.new_tag }}
-          draft: true
+          draft: false
           prerelease: true
 
       - name: Upload Release Asset
