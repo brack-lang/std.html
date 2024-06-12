@@ -1,0 +1,56 @@
+name: Develop
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v22
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: nix profile install nixpkgs#gh
+      - run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+      - name: Get current version
+        id: version
+        run: echo "version=$(cat ./VERSION)" >> $GITHUB_OUTPUT
+
+      - name: Get latest dev tag
+        id: new-tag
+        run: |
+          LATEST_TAG=$(gh release list --limit 100 | grep "v-${{ steps.version.outputs.version }}-dev-" | sort -V | tail -n 1 | awk '{print $1}')
+          if [ -z "$LATEST_TAG" ]; then
+            NEW_TAG="v-${{ steps.version.outputs.version }}-dev-1"
+          else
+            DEV_NUMBER=$(echo $LATEST_TAG | sed -E 's/^.*-dev-([0-9]+)$/\1/')
+            NEW_TAG="v-${{ steps.version.outputs.version }}-dev-$((DEV_NUMBER + 1))"
+          fi
+          echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT
+
+      - run: nix build
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.new-tag.outputs.new_tag }}
+          release_name: Develop release ${{ steps.new-tag.outputs.new_tag }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./result/std.html.wasm
+          asset_name: std.html.wasm
+          asset_content_type: application/wasm
