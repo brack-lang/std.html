@@ -3,4 +3,5 @@ pub mod bold;
 pub mod footnote;
 pub mod headings;
 pub mod italic;
+pub mod list;
 pub mod quote;
