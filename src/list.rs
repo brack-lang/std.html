@@ -22,9 +22,9 @@ pub fn metadata_ordered_list() -> FnResult<Json<MetaData>> {
 }
 
 fn is_list(text: &str) -> bool {
-    bool is_unordered_list = text.starts_with("<ul>") && text.ends_with("</ul>");
-    bool is_ordered_list = text.starts_with("<ol>") && text.ends_with("</ol>");
-    return is_unordered_list && is_ordered_list
+    let is_unordered_list = text.starts_with("<ul>") && text.ends_with("</ul>");
+    let is_ordered_list = text.starts_with("<ol>") && text.ends_with("</ol>");
+    return is_unordered_list && is_ordered_list;
 }
 
 #[plugin_fn]
@@ -46,7 +46,7 @@ pub fn unordered_list(Json(args): Json<Vec<Value>>) -> FnResult<String> {
     };
     let mut result = String::new();
     for elem in elems {
-        if is_list(text) {
+        if is_list(elem) {
             result += elem;
             continue;
         }
@@ -54,7 +54,6 @@ pub fn unordered_list(Json(args): Json<Vec<Value>>) -> FnResult<String> {
     }
     Ok(format!("<ul>{}</ul>", result))
 }
-
 
 #[plugin_fn]
 pub fn ordered_list(Json(args): Json<Vec<Value>>) -> FnResult<String> {
