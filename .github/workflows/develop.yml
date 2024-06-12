@@ -30,7 +30,7 @@ jobs:
             DEV_NUMBER=$(echo $LATEST_TAG | sed -E 's/^.*-dev-([0-9]+)$/\1/')
             NEW_TAG="v-${{ steps.version.outputs.version }}-dev-$((DEV_NUMBER + 1))"
           fi
-          echo "new_tag=$NEW_TAG" >> $GITHUB_ENV
+          echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT
 
       - run: nix build
 
