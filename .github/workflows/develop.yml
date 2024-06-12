@@ -18,17 +18,17 @@ jobs:
 
       - name: Get current version
         id: version
-        run: echo "version=$(cat ./VERSION)" >> $GITHUB_ENV
+        run: echo "version=$(cat ./VERSION)" >> $GITHUB_OUTPUT
 
       - name: Get latest dev tag
         id: new-tag
         run: |
-          LATEST_TAG=$(gh release list --limit 100 | grep "v-${{ env.version }}-dev-" | sort -V | tail -n 1 | awk '{print $1}')
+          LATEST_TAG=$(gh release list --limit 100 | grep "v-${{ steps.version.outputs.version }}-dev-" | sort -V | tail -n 1 | awk '{print $1}')
           if [ -z "$LATEST_TAG" ]; then
-            NEW_TAG="v-${{ env.version }}-dev-1"
+            NEW_TAG="v-${{ steps.version.outputs.version }}-dev-1"
           else
             DEV_NUMBER=$(echo $LATEST_TAG | sed -E 's/^.*-dev-([0-9]+)$/\1/')
-            NEW_TAG="v-${{ env.version }}-dev-$((DEV_NUMBER + 1))"
+            NEW_TAG="v-${{ steps.version.outputs.version }}-dev-$((DEV_NUMBER + 1))"
           fi
           echo "new_tag=$NEW_TAG" >> $GITHUB_ENV
 
@@ -40,8 +40,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.new_tag }}
-          release_name: Develop release ${{ env.version }}
+          tag_name: ${{ steps.new-tag.outputs.new_tag }}
+          release_name: Develop release ${{ steps.new-tag.outputs.new_tag }}
           draft: true
           prerelease: true
 
