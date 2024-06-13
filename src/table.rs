@@ -45,7 +45,7 @@ pub fn table(Json(args): Json<Vec<Value>>) -> FnResult<String> {
         }
     };
     let mut result = String::from("");
-    for i in 0..(elems.len() as i32 % col) {
+    for i in 0..(elems.len() as i32 + col - 1) / col {
         let mut tr = String::from("");
         for j in 0..col {
             tr += &format!("<td>{}</td>", elems[(i * col + j) as usize]);
