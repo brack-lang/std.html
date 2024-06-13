@@ -14,7 +14,10 @@ pub fn metadata_rules() -> FnResult<Json<MetaData>> {
 #[plugin_fn]
 pub fn rules(Json(args): Json<Vec<Value>>) -> FnResult<String> {
     if args.len() != 0 {
-        return Err(WithReturnCode::new(anyhow::anyhow!("Usage: {{std.---}}"), 1));
+        return Err(WithReturnCode::new(
+            anyhow::anyhow!("Usage: {{std.---}}"),
+            1,
+        ));
     }
     Ok(String::from("<hr />"))
 }
