@@ -9,3 +9,4 @@ pub mod list;
 pub mod quote;
 pub mod rules;
 pub mod strike;
+pub mod table;
