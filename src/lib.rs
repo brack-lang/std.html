@@ -1,5 +1,12 @@
 pub mod anchor;
 pub mod bold;
-pub mod headings;
+pub mod code;
 pub mod footnote;
+pub mod headings;
+pub mod image;
 pub mod italic;
+pub mod list;
+pub mod quote;
+pub mod rules;
+pub mod strike;
+pub mod table;
