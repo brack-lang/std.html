@@ -10,11 +10,12 @@ $ brack add github:brack-lang/std.html
 ### Heading
 ```brack
 {std.* Hello!}
-{std.** }
+{std.** Hello\, World!}
 ```
 
 ```html
 <h1>Hello!</h1>
+<h2>Hello, World!</h2>
 ```
 
 ### Bold
