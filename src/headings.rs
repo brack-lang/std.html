@@ -1,64 +1,17 @@
 use brack_sdk_rs::{MetaData, Type, Value};
 use extism_pdk::{plugin_fn, FnResult, Json, WithReturnCode};
 
-#[plugin_fn]
-pub fn metadata_headings_level1() -> FnResult<Json<MetaData>> {
-    Ok(Json(MetaData {
-        command_name: "*".to_string(),
-        call_name: "headings_level1".to_string(),
-        argument_types: vec![("text".to_string(), Type::TInline)],
-        return_type: Type::TBlock,
-    }))
-}
-
-#[plugin_fn]
-pub fn metadata_headings_level2() -> FnResult<Json<MetaData>> {
-    Ok(Json(MetaData {
-        command_name: "**".to_string(),
-        call_name: "headings_level2".to_string(),
-        argument_types: vec![("text".to_string(), Type::TInline)],
-        return_type: Type::TBlock,
-    }))
-}
-
-#[plugin_fn]
-pub fn metadata_headings_level3() -> FnResult<Json<MetaData>> {
-    Ok(Json(MetaData {
-        command_name: "***".to_string(),
-        call_name: "headings_level3".to_string(),
-        argument_types: vec![("text".to_string(), Type::TInline)],
-        return_type: Type::TBlock,
-    }))
-}
-
-#[plugin_fn]
-pub fn metadata_headings_level4() -> FnResult<Json<MetaData>> {
-    Ok(Json(MetaData {
-        command_name: "****".to_string(),
-        call_name: "headings_level4".to_string(),
-        argument_types: vec![("text".to_string(), Type::TInline)],
-        return_type: Type::TBlock,
-    }))
-}
-
-#[plugin_fn]
-pub fn metadata_headings_level5() -> FnResult<Json<MetaData>> {
-    Ok(Json(MetaData {
-        command_name: "*****".to_string(),
-        call_name: "headings_level5".to_string(),
-        argument_types: vec![("text".to_string(), Type::TInline)],
-        return_type: Type::TBlock,
-    }))
-}
-
-#[plugin_fn]
-pub fn metadata_headings_level6() -> FnResult<Json<MetaData>> {
-    Ok(Json(MetaData {
-        command_name: "******".to_string(),
-        call_name: "headings_level6".to_string(),
-        argument_types: vec![("text".to_string(), Type::TInline)],
-        return_type: Type::TBlock,
-    }))
+pub(crate) fn metadata_headings() -> Vec<MetaData> {
+    let mut metadata = Vec::new();
+    for i in 1..=6 {
+        metadata.push(MetaData {
+            command_name: "*".repeat(i),
+            call_name: format!("headings_level{}", i),
+            argument_types: vec![("text".to_string(), Type::TInline)],
+            return_type: Type::TBlock,
+        });
+    }
+    metadata
 }
 
 #[plugin_fn]

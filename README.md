@@ -3,18 +3,20 @@ The standard library of the brack-language for targeting to naive HTML.
 
 ## Installation
 ```sh
-$ brack add github:brack-lang/std.html
+brack add github:brack-lang/std.html@v-0.0.1-dev-5 # develop
+brack add github:brack-lang/std.html@v-0.0.1 # main (under construction)
 ```
 
 ## Syntax
 ### Heading
 ```brack
 {std.* Hello!}
-{std.** }
+{std.** Hello\, World!}
 ```
 
 ```html
 <h1>Hello!</h1>
+<h2>Hello, World!</h2>
 ```
 
 ### Bold

@@ -1,24 +1,22 @@
 use brack_sdk_rs::{MetaData, Type, Value};
 use extism_pdk::{plugin_fn, FnResult, Json, WithReturnCode};
 
-#[plugin_fn]
-pub fn metadata_unordered_list() -> FnResult<Json<MetaData>> {
-    Ok(Json(MetaData {
+pub(crate) fn metadata_unordered_list() -> MetaData {
+    MetaData {
         command_name: "-list".to_string(),
         call_name: "unordered_list".to_string(),
         argument_types: vec![("elems".to_string(), Type::TArray(Box::new(Type::TInline)))],
         return_type: Type::TBlock,
-    }))
+    }
 }
 
-#[plugin_fn]
-pub fn metadata_ordered_list() -> FnResult<Json<MetaData>> {
-    Ok(Json(MetaData {
+pub(crate) fn metadata_ordered_list() -> MetaData {
+    MetaData {
         command_name: "#list".to_string(),
         call_name: "ordered_list".to_string(),
         argument_types: vec![("elems".to_string(), Type::TArray(Box::new(Type::TInline)))],
         return_type: Type::TBlock,
-    }))
+    }
 }
 
 fn is_list(text: &str) -> bool {

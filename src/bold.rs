@@ -1,14 +1,13 @@
 use brack_sdk_rs::{MetaData, Type, Value};
 use extism_pdk::{plugin_fn, FnResult, Json, WithReturnCode};
 
-#[plugin_fn]
-pub fn metadata_bold() -> FnResult<Json<MetaData>> {
-    Ok(Json(MetaData {
+pub(crate) fn metadata_bold() -> MetaData {
+    MetaData {
         command_name: "*".to_string(),
         call_name: "bold".to_string(),
         argument_types: vec![("text".to_string(), Type::TInline)],
         return_type: Type::TInline,
-    }))
+    }
 }
 
 #[plugin_fn]
