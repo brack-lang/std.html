@@ -14,7 +14,7 @@ jobs:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
       - run: nix profile install nixpkgs#gh
       - run: |
-          echo "${ secrets.GITHUB_TOKEN }" | gh auth login --with-token
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
       
       - name: Get current version
         id: version
