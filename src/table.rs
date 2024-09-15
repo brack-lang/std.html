@@ -1,9 +1,8 @@
 use brack_sdk_rs::{MetaData, Type, Value};
 use extism_pdk::{plugin_fn, FnResult, Json, WithReturnCode};
 
-#[plugin_fn]
-pub fn metadata_table() -> FnResult<Json<MetaData>> {
-    Ok(Json(MetaData {
+pub(crate) fn metadata_table() -> MetaData {
+    MetaData {
         command_name: "table".to_string(),
         call_name: "table".to_string(),
         argument_types: vec![
@@ -11,7 +10,7 @@ pub fn metadata_table() -> FnResult<Json<MetaData>> {
             ("elems".to_string(), Type::TArray(Box::new(Type::TInline))),
         ],
         return_type: Type::TBlock,
-    }))
+    }
 }
 
 #[plugin_fn]

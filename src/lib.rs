@@ -6,6 +6,7 @@ pub mod headings;
 pub mod image;
 pub mod italic;
 pub mod list;
+pub mod metadata;
 pub mod quote;
 pub mod rules;
 pub mod strike;

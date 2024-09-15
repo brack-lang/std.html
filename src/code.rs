@@ -3,9 +3,8 @@ use std::{fs::File, io::Read};
 use brack_sdk_rs::{MetaData, Type, Value};
 use extism_pdk::{plugin_fn, FnResult, Json, WithReturnCode};
 
-#[plugin_fn]
-pub fn metadata_inline_code() -> FnResult<Json<MetaData>> {
-    Ok(Json(MetaData {
+pub(crate) fn metadata_inline_code() -> MetaData {
+    MetaData {
         command_name: "$".to_string(),
         call_name: "inline_code".to_string(),
         argument_types: vec![
@@ -16,12 +15,11 @@ pub fn metadata_inline_code() -> FnResult<Json<MetaData>> {
             ),
         ],
         return_type: Type::TInline,
-    }))
+    }
 }
 
-#[plugin_fn]
-pub fn metadata_block_code() -> FnResult<Json<MetaData>> {
-    Ok(Json(MetaData {
+pub(crate) fn metadata_block_code() -> MetaData {
+    MetaData {
         command_name: "$".to_string(),
         call_name: "block_quote".to_string(),
         argument_types: vec![
@@ -32,7 +30,7 @@ pub fn metadata_block_code() -> FnResult<Json<MetaData>> {
             ),
         ],
         return_type: Type::TBlock,
-    }))
+    }
 }
 
 #[plugin_fn]

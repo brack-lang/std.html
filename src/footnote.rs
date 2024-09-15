@@ -1,14 +1,13 @@
 use brack_sdk_rs::{ast::AST, MetaData, Type};
 use extism_pdk::{plugin_fn, FnResult, Json, WithReturnCode};
 
-#[plugin_fn]
-pub fn metadata_footnote() -> FnResult<Json<MetaData>> {
-    Ok(Json(MetaData {
+pub(crate) fn metadata_footnote() -> MetaData {
+    MetaData {
         command_name: "^".to_string(),
         call_name: "footnote".to_string(),
         argument_types: vec![], // TODO: macro does not have the custom type,
         return_type: Type::TAST,
-    }))
+    }
 }
 
 #[plugin_fn]

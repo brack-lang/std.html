@@ -1,9 +1,8 @@
 use brack_sdk_rs::{MetaData, Type, Value};
 use extism_pdk::{plugin_fn, FnResult, Json, WithReturnCode};
 
-#[plugin_fn]
-pub fn metadata_image() -> FnResult<Json<MetaData>> {
-    Ok(Json(MetaData {
+pub(crate) fn metadata_image() -> MetaData {
+    MetaData {
         command_name: "img".to_string(),
         call_name: "image".to_string(),
         argument_types: vec![
@@ -15,7 +14,7 @@ pub fn metadata_image() -> FnResult<Json<MetaData>> {
             ),
         ],
         return_type: Type::TBlock,
-    }))
+    }
 }
 
 #[plugin_fn]
